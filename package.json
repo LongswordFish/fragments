@@ -27,6 +27,7 @@
     "helmet": "^5.0.1",
     "pino": "^7.6.3",
     "pino-http": "^6.5.0",
-    "pino-pretty": "^7.3.0"
+    "pino-pretty": "^7.3.0",
+    "stoppable": "^1.1.0"
   }
 }
