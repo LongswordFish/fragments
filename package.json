@@ -1,6 +1,6 @@
 {
   "name": "fragments",
-  "private":true,
+  "private": true,
   "version": "0.0.1",
   "description": "Fragments back-end API for Winter 2022",
   "engines": {
@@ -14,5 +14,8 @@
     "url": "git+https://github.com/LongswordFish/fragments.git"
   },
   "author": "Jianchang Yu",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.5.1"
+  }
 }
