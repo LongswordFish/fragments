@@ -9,6 +9,24 @@ const helmet = require('helmet');
 //compress the respond bodys
 const compression = require('compression');
 
+// Create an express app instance we can use to attach middleware and HTTP routes
+const app = express();
+
+// modifications to src/app.js
+
+const passport = require('passport');
+
+const authorization = require('./authorization');
+
+// Use gzip/deflate compression middleware
+app.use(compression());
+
+// Set up our passport authorization middleware
+passport.use(authorization.strategy());
+app.use(passport.initialize());
+
+// Define our routes
+app.use('/', require('./routes'));
 // Version from our package.json file
 const { version } = require('../package.json');
 
@@ -18,8 +36,7 @@ const pino = require('pino-http')({
   logger,
 });
 
-// Create an express app instance we can use to attach middleware and HTTP routes
-const app = express();
+
 
 // Use logging middleware
 app.use(pino);
@@ -33,21 +50,8 @@ app.use(cors());
 // Use gzip/deflate compression middleware
 app.use(compression());
 
-// Define a simple health check route. If the server is running
-// we'll respond with a 200 OK.  If not, the server isn't healthy.
-app.get('/', (req, res) => {
-  // Clients shouldn't cache this response (always request it fresh)
-  // See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#controlling_caching
-  res.setHeader('Cache-Control', 'no-cache');
-
-  // Send a 200 'OK' response with info about our repo
-  res.status(200).json({
-    status: 'ok',
-    author: 'Jianchang Yu',
-    githubUrl: 'https://github.com/LongswordFish/fragments',
-    version,
-  });
-});
+//move the logic code to ./routes.index
+app.use('/', require('./routes'));
 
 // Add 404 middleware to handle any requests for resources that can't be found can't be found
 app.use((req, res) => {
