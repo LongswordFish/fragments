@@ -8,27 +8,13 @@ const cors = require('cors');
 const helmet = require('helmet');
 //compress the respond bodys
 const compression = require('compression');
-
-// Create an express app instance we can use to attach middleware and HTTP routes
-const app = express();
+// Version from our package.json file
+const { version } = require('../package.json');
 
 // modifications to src/app.js
 
 const passport = require('passport');
-
 const authorization = require('./authorization');
-
-// Use gzip/deflate compression middleware
-app.use(compression());
-
-// Set up our passport authorization middleware
-passport.use(authorization.strategy());
-app.use(passport.initialize());
-
-// Define our routes
-app.use('/', require('./routes'));
-// Version from our package.json file
-const { version } = require('../package.json');
 
 const logger = require('./logger');
 const pino = require('pino-http')({
@@ -36,7 +22,11 @@ const pino = require('pino-http')({
   logger,
 });
 
+// Create an express app instance we can use to attach middleware and HTTP routes
+const app = express();
 
+// Use gzip/deflate compression middleware
+app.use(compression());
 
 // Use logging middleware
 app.use(pino);
@@ -47,10 +37,11 @@ app.use(helmet());
 // Use CORS middleware so we can make requests across origins
 app.use(cors());
 
-// Use gzip/deflate compression middleware
-app.use(compression());
+// Set up our passport authorization middleware
+passport.use(authorization.strategy());
+app.use(passport.initialize());
 
-//move the logic code to ./routes.index
+// Define our routes
 app.use('/', require('./routes'));
 
 // Add 404 middleware to handle any requests for resources that can't be found can't be found
