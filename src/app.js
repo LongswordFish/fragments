@@ -8,8 +8,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 //compress the respond bodys
 const compression = require('compression');
-// Version from our package.json file
-const { version } = require('../package.json');
 
 // modifications to src/app.js
 
