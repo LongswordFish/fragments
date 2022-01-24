@@ -7,8 +7,10 @@
     "node": ">=16"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --config .eslintrc.js src/**",
+    "test:watch": "jest -c jest.config.js --runInBand --watch --",
+    "test": "jest -c jest.config.js --runInBand --",
+    "coverage": "jest -c jest.config.js --runInBand --coverage",
+    "lint": "eslint --config .eslintrc.js src/** tests/**",
     "start": "node src/index.js",
     "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
@@ -21,6 +23,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "eslint": "^8.6.0",
+    "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "prettier": "2.5.1"
   },
