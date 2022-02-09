@@ -8,7 +8,7 @@ const logger = require('../../logger');
  * Post a new fragments for the current user
  */
 module.exports = (req, res) => {
-  //validate the content-type of fragment first
+
   res.status(200).json(createSuccessResponse({
     fragments: [],
   }));
