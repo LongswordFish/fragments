@@ -41,6 +41,7 @@ class MemoryDB {
     db[primaryKey] = db[primaryKey] || {};
     // Add the `value` to the `secondaryKey`
     db[primaryKey][secondaryKey] = value;
+
     return Promise.resolve();
   }
 
