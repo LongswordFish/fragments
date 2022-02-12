@@ -1,19 +1,22 @@
 // src/routes/api/index.js
-const { ValidateContentType } = require("../../middlewares/validate-content-type");
-const Fragment = require("../../model/fragment");
+
 /**
  * The main entry-point for the v1 version of the fragments API.
  */
 const express = require('express');
 
+const { Fragment } = require("../../model/fragment");
+
 // Create a router on which to mount our API endpoints
 const router = express.Router();
+
+//to parse the type
 const contentType = require('content-type');
-// Define our first route, which will be: GET /v1/fragments
+
+// Define our routes, which will be: GET /v1/fragments
+
+router.get('/fragments/:_id', require('./get-by-id'));
 router.get('/fragments', require('./get'));
-
-router.use(ValidateContentType);
-
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
   express.raw({

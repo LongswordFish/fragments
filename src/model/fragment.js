@@ -17,7 +17,7 @@ const {
 } = require('./data');
 
 class Fragment {
-  constructor({ id, ownerId, created, updated, type, size = 0 }) {
+  constructor({ id, ownerId, type, size = 0 }) {
 
     if (id) {
       this.id = id;
@@ -135,7 +135,7 @@ class Fragment {
       }
       var a = JSON.stringify(new Date);
       this.updated = a.substring(1, a.length - 2);
-      this.size = this.size + 1;
+      this.size = data.length;
       await writeFragment(this);
       return writeFragmentData(this.ownerId, this.id, data);
     } catch (Error) {
@@ -186,13 +186,13 @@ class Fragment {
   static isSupportedType(value) {
     const validTypes = [
       `text/plain`,
-      `text/markdown`,
-      `text/html`,
-      `application/json`,
-      `image/png`,
-      `image/jpeg`,
-      `image/webp`,
-      `image/gif`
+      // `text/markdown`,
+      // `text/html`,
+      // `application/json`,
+      // `image/png`,
+      // `image/jpeg`,
+      // `image/webp`,
+      // `image/gif`
     ];
 
     if (!value || value.length === 0) {
@@ -215,6 +215,8 @@ class Fragment {
     }
 
   }
+
+  static sayHello() { console.log('hello'); }
 }
 
 module.exports.Fragment = Fragment;

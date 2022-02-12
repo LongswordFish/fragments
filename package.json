@@ -13,6 +13,7 @@
     "lint": "eslint --config .eslintrc.js src/** tests/**",
     "start": "node src/index.js",
     "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
+    "curl":"LOG_LEVEL=debug HTPASSWD_FILE=tests/.htpasswd nodemon ./src/index.js --watch src",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
   },
   "repository": {
