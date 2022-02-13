@@ -1,5 +1,5 @@
 const { listFragments, writeFragment, readFragment, writeFragmentData, readFragmentData,
-  deleteFragment } = require('../../src/model/data/memory');
+} = require('../../src/model/data/memory');
 
 
 describe('Data Model Test', () => {

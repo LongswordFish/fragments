@@ -10,10 +10,8 @@ module.exports = async (req, res) => {
   try {
     const _ownerId = createHash('sha256').update(req.user).digest('hex');
     var _id = req.params._id;
-    var ext = "";
 
     if (_id.indexOf(".txt") !== -1) {
-      ext = ".txt";
       _id = _id.substring(0, _id.indexOf(".txt"));
     }
     var fragment = await Fragment.byId(_ownerId, _id);

@@ -1,7 +1,6 @@
 // tests/unit/get.test.js
 
 const request = require('supertest');
-const { createHash } = require('crypto');
 const app = require('../../src/app');
 
 describe('GET /v1/fragments/:id', () => {
