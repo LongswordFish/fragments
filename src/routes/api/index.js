@@ -16,6 +16,9 @@ const contentType = require('content-type');
 // Define our routes, which will be: GET /v1/fragments
 
 router.get('/fragments/:_id', require('./get-by-id'));
+
+router.get('/fragments/:_id/info', require('./get-by-id-info'));
+
 router.get('/fragments', require('./get'));
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
