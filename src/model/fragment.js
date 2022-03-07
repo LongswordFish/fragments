@@ -81,16 +81,12 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    try {
-      const returnValue = await readFragment(ownerId, id);
-      if (!returnValue) {
-        return Promise.reject(new Error("no such fragment found"));
-      }
 
-      return returnValue;
-    } catch (Error) {
-      Promise.reject(Error);
+    const returnValue = await readFragment(ownerId, id);
+    if (!returnValue) {
+      throw new Error("Not fragment found");
     }
+    return returnValue;
 
   }
 
@@ -138,8 +134,8 @@ class Fragment {
       this.size = data.length;
       await writeFragment(this);
       return writeFragmentData(this.ownerId, this.id, data);
-    } catch (Error) {
-      Promise.reject(Error);
+    } catch (error) {
+      Promise.reject(error);
     }
 
   }
@@ -186,7 +182,7 @@ class Fragment {
   static isSupportedType(value) {
     const validTypes = [
       `text/plain`,
-      // `text/markdown`,
+      `text/markdown`,
       // `text/html`,
       // `application/json`,
       // `image/png`,
@@ -216,7 +212,6 @@ class Fragment {
 
   }
 
-  static sayHello() { console.log('hello'); }
 }
 
 module.exports.Fragment = Fragment;

@@ -13,7 +13,7 @@
     "lint": "eslint --config .eslintrc.js src/** tests/**",
     "start": "node src/index.js",
     "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
-    "curl":"LOG_LEVEL=debug HTPASSWD_FILE=tests/.htpasswd nodemon ./src/index.js --watch src",
+    "curl": "LOG_LEVEL=debug HTPASSWD_FILE=tests/.htpasswd nodemon ./src/index.js --watch src",
     "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
   },
   "repository": {
@@ -39,6 +39,7 @@
     "helmet": "^5.0.1",
     "http-auth": "^4.1.9",
     "http-auth-passport": "^1.0.6",
+    "markdown-it": "^12.3.2",
     "nanoid": "^3.2.0",
     "passport": "^0.5.2",
     "passport-http-bearer": "^1.0.1",

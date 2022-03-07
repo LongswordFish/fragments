@@ -42,11 +42,11 @@ describe('POST /v1/fragments', () => {
   });
 
   //unsupported type will fail
-  test('unsupported type will fail', async () => {
+  test('unsupported type will get a 415', async () => {
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1')
-      .set('content-type', 'application/json').send({ 'object': 'object' });
+      .set('content-type', 'image/gif');
     expect(res.statusCode).toBe(415);
-    //expect(res.body.status).toBe('ok');
+    expect(res.body.error.message).toBe("type not supported");
   });
 
   // TODO: we'll need to add tests to check the contents of the fragments array later
