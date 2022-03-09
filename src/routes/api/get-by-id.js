@@ -13,7 +13,6 @@ var MarkdownIt = require('markdown-it'),
  */
 module.exports = async (req, res) => {
   try {
-
     const supportedTypePairs = {
       "text/plain": [".txt"],
       "text/markdown": [".md", ".html", ".txt"],
@@ -55,7 +54,7 @@ module.exports = async (req, res) => {
           res.setHeader('content-type', 'text/html');
           res.status(200).send(md.render(data.toString()))
         } else {
-          //other text/plain will return the data
+          //other text/plain will return the data for now until assignment3
           res.setHeader('content-type', fragment.type);
           res.status(200).send(data);
         }

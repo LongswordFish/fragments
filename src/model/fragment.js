@@ -183,8 +183,8 @@ class Fragment {
     const validTypes = [
       `text/plain`,
       `text/markdown`,
-      // `text/html`,
-      // `application/json`,
+      `text/html`,
+      `application/json`,
       // `image/png`,
       // `image/jpeg`,
       // `image/webp`,
