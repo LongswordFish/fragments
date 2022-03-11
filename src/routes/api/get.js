@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
       fragments
     }));
   } catch (err) {
-    createErrorResponse(404, err);
+    res.status(404).json(createErrorResponse(404, err));
   }
 
 };

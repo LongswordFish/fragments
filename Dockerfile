@@ -20,7 +20,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install node dependencies defined in package-lock.json
-RUN npm install
+RUN npm ci --only=production
 
 #################################################################################
 # Stage 1: builder stage
@@ -35,7 +35,7 @@ COPY --from=base /app /app
 # Copy src to /app/src/
 COPY . .
 
-RUN apk add dumb-init
+RUN apk add --no-cache dumb-init=1.2.5
 
 # Start the container by running our server
 CMD ["dumb-init","node","/app/src/server.js"]
