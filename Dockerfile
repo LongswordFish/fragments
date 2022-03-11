@@ -35,7 +35,7 @@ COPY --from=base /app /app
 # Copy src to /app/src/
 COPY . .
 
-RUN apk add --no-cache dumb-init=1.2.5
+RUN apk add --no-cache dumb-init=1.2.5-r1
 
 # Start the container by running our server
 CMD ["dumb-init","node","/app/src/server.js"]
