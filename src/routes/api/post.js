@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     const { headers } = req;
     var type = headers['content-type'];
 
-    const ownerId = req.user
+    const ownerId = req.user;
     const fragment = new Fragment({ ownerId, type });
     await fragment.save();
     logger.debug("req.body is" + req.body);

@@ -47,7 +47,7 @@ describe('GET /v1/fragments', () => {
     expect(res.body.status).toBe('ok');
     expect(res.body.fragments[0].id).toMatch(/[A-Za-z0-9_-]+/);
     expect(res.body.fragments[0].type).toBe("text/plain");
-    expect(res.body.fragments[0].size).toBe(17);
+    expect(res.body.fragments[0].size).toBe(Buffer.byteLength("this is the value"));
     expect(res.body.fragments[0].ownerId).toBe(returnId);
     expect(res.body.fragments[0].created).not.toBeNull();
   });

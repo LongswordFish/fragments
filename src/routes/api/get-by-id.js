@@ -52,7 +52,7 @@ module.exports = async (req, res) => {
         //only consider the md to html now
         if (".html" === ext) {
           res.setHeader('content-type', 'text/html');
-          res.status(200).send(md.render(data.toString()))
+          res.status(200).send(Buffer.from(md.render(data.toString())));
         } else {
           //other text/plain will return the data for now until assignment3
           res.setHeader('content-type', fragment.type);

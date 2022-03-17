@@ -127,15 +127,15 @@ class Fragment {
   async setData(data) {
     try {
       if (!data) {
-        return Promise.reject(new Error('some error'));
+        throw new Error('Data can not be null');
       }
       var a = JSON.stringify(new Date);
       this.updated = a.substring(1, a.length - 2);
-      this.size = data.length;
+      this.size = Buffer.byteLength(data);
       await writeFragment(this);
       return writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
-      Promise.reject(error);
+      throw new Error(error);
     }
 
   }
