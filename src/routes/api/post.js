@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     logger.debug("req.body is" + req.body);
     await fragment.setData(req.body);
 
-    res.location(`${process.env.API_URL}:${process.env.PORT}/v1/fragments/${fragment.id}`);
+    res.location(`${process.env.API_URL}/v1/fragments/${fragment.id}`);
 
     res.status(201).json(createSuccessResponse({
       fragment
