@@ -12,14 +12,20 @@ const router = express.Router();
 
 //to parse the type
 const contentType = require('content-type');
+const logger = require('../../logger');
 
 // Define our routes, which will be: GET /v1/fragments
-
+//get data of a fragment
 router.get('/fragments/:_id', require('./get-by-id'));
-
+//get the metadata of a fragment 
 router.get('/fragments/:_id/info', require('./get-by-id-info'));
-
+//get all the fragments owned by the current user
 router.get('/fragments', require('./get'));
+
+//delete a fragment
+router.delete('/fragments/:_id', require('./delete'));
+
+
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
   express.raw({
@@ -36,6 +42,9 @@ const rawBody = () =>
 
 // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
 router.post('/fragments', rawBody(), require('./post'));
+
+//update a data
+router.put('/fragments/:_id', rawBody(), require('./put'));
 
 // Other routes will go here later on...
 

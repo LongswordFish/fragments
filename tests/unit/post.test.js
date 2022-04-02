@@ -37,7 +37,7 @@ describe('POST /v1/fragments', () => {
     expect(res.body.fragment.size).toBe(Buffer.byteLength("this is the value"));
     expect(res.body.fragment.ownerId).toBe(returnId);
     expect(res.body.fragment.created).not.toBeNull();
-    expect(res.headers['location']).toBe(`${process.env.API_URL}:8080/v1/fragments/${res.body.fragment.id}`)
+    expect(res.headers['location']).toBe(`${process.env.API_URL}/v1/fragments/${res.body.fragment.id}`)
 
   });
 
