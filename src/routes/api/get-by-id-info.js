@@ -4,7 +4,7 @@ const { Fragment } = require("../../model/fragment");
 const logger = require("../../logger");
 
 /**
- * Get a list of fragments for the current user
+ * Get the fragment metadata for the current user
  */
 module.exports = async (req, res) => {
   try {

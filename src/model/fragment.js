@@ -81,12 +81,16 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-
-    const returnValue = await readFragment(ownerId, id);
-    if (!returnValue) {
-      throw new Error("Not fragment found");
+    try {
+      const returnValue = await readFragment(ownerId, id);
+      if (!returnValue) {
+        throw new Error("No fragment found");
+      }
+      return returnValue;
+    } catch (err) {
+      throw new Error(err);
     }
-    return returnValue;
+
 
   }
 

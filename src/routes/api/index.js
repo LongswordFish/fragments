@@ -12,7 +12,6 @@ const router = express.Router();
 
 //to parse the type
 const contentType = require('content-type');
-const logger = require('../../logger');
 
 // Define our routes, which will be: GET /v1/fragments
 //get data of a fragment
