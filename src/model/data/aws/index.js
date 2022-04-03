@@ -110,8 +110,7 @@ async function deleteFragment(ownerId, id) {
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     // Our key will be a mix of the ownerID and fragment id, written as a path
-    Key: `${ownerId}/${id}`,
-    Body: data,
+    Key: `${ownerId}/${id}`
   };
   // Create a PUT Object command to send to S3
   const command = new DeleteObjectCommand(params);
@@ -119,7 +118,8 @@ async function deleteFragment(ownerId, id) {
   try {
     // Use our client to send the command
     await s3Client.send(command);
-    metadata.del(ownerId, id);
+    await metadata.del(ownerId, id);
+    return Promise.resolve();
   } catch (err) {
     // If anything goes wrong, log enough info that we can debug
     const { Bucket, Key } = params;

@@ -100,8 +100,13 @@ class Fragment {
    * @param {string} id fragment's id
    * @returns Promise
    */
-  static delete(ownerId, id) {
-    deleteFragment(ownerId, id);
+  static async delete(ownerId, id) {
+    try {
+      await deleteFragment(ownerId, id);
+    } catch (err) {
+      throw new Error(err);
+    }
+
   }
 
   /**
