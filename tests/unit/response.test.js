@@ -2,14 +2,6 @@
 
 const { createErrorResponse, createSuccessResponse } = require('../../src/response');
 
-beforeAll(() => {
-  // Clears the database and adds some testing data.
-  // Jest will wait for this promise to resolve before running tests.
-  return globalDatabase.clear().then(() => {
-    return globalDatabase.insert({ testData: 'foo' });
-  });
-});
-
 // Define (i.e., name) the set of tests we're about to do
 describe('API Responses', () => {
   // Write a test for calling createErrorResponse()

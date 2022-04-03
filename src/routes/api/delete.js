@@ -14,6 +14,8 @@ module.exports = async (req, res) => {
 
     var fragment = await Fragment.byId(req.user, _id);
 
+    logger.debug({ "fragment is": fragment });
+
     await Fragment.delete(req.user, _id);
 
     res.status(200).json(createSuccessResponse());

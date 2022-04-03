@@ -4,10 +4,6 @@ const request = require('supertest');
 
 const app = require('../../src/app');
 
-const { createHash } = require('crypto');
-
-
-
 describe('DELETE /v1/fragments', () => {
 
   var FRAGMENT_ID;
