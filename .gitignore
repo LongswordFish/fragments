@@ -105,3 +105,6 @@ dist
 
 #coverage folder
 coverage/
+
+#minio data
+.minio/
