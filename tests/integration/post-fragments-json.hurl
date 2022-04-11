@@ -17,7 +17,7 @@ HTTP/1.1 201
 # We have various assertions about the response that we want to check 
 [Asserts]
 # The Location header should look like what we expect (including the fragment id)
-header "Location" matches "^localhost:8080\/v1\/fragments\/[A-Za-z0-9_-]+$"
+header "Location" matches "^http://localhost:8080\/v1\/fragments\/[A-Za-z0-9_-]+$"
 jsonpath "$.status" == "ok"
 # Our fragment ids use https://www.npmjs.com/package/nanoid
 jsonpath "$.fragment.id" matches "^[A-Za-z0-9_-]+$"
