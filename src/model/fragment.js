@@ -142,7 +142,7 @@ class Fragment {
       this.updated = a.substring(1, a.length - 2);
       this.size = Buffer.byteLength(data);
       await writeFragment(this);
-      return writeFragmentData(this.ownerId, this.id, data);
+      return await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
       throw new Error(error);
     }

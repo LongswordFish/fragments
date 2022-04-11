@@ -1,5 +1,3 @@
-const MemoryDB = require('../memory/memory-db');
-
 //import s3 and functions
 const s3Client = require('./s3Client');
 const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
@@ -10,8 +8,9 @@ const { PutCommand, GetCommand, QueryCommand, DeleteCommand } = require('@aws-sd
 
 const logger = require('../../../logger');
 
+
 // Writes a fragment to DynamoDB. Returns a Promise.
-function writeFragment(fragment) {
+async function writeFragment(fragment) {
   // Configure our PUT params, with the name of the table and item (attributes and keys)
   const params = {
     TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
@@ -22,14 +21,14 @@ function writeFragment(fragment) {
   const command = new PutCommand(params);
 
   try {
-    return ddbDocClient.send(command);
+    return await ddbDocClient.send(command);
   } catch (err) {
     logger.warn({ err, params, fragment }, 'error writing fragment to DynamoDB');
     throw err;
   }
 }
 
-// Reads a fragment from DynamoDB. Returns a Promise<fragment|undefined>
+// // Reads a fragment from DynamoDB. Returns a Promise<fragment|undefined>
 async function readFragment(ownerId, id) {
   // Configure our GET params, with the name of the table and key (partition key + sort key)
   const params = {
