@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
 
     //1. if there is no ext, send data
     if ("" == ext) {
-      let fragment = await Fragment.byId(req.user, _id);
+      let fragment = new Fragment(await Fragment.byId(req.user, _id));
       let data = await fragment.getData();
       res.setHeader('content-type', fragment.type);
       res.status(200).send(data);
@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
     //2. if the ext is supported
     else if (isExtSupported(ext)) {
       _id = _id.substring(0, _id.lastIndexOf("."));
-      let fragment = await Fragment.byId(req.user, _id);
+      let fragment = new Fragment(await Fragment.byId(req.user, _id));
 
       //2.1 if can convert, convert and send
       if (supportedTypePairs[fragment.type].includes(ext)) {

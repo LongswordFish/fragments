@@ -17,7 +17,7 @@ const {
 } = require('./data');
 
 class Fragment {
-  constructor({ id, ownerId, type, size = 0 }) {
+  constructor({ id, ownerId, type, created, updated, size = 0 }) {
 
     if (id) {
       this.id = id;
@@ -40,9 +40,17 @@ class Fragment {
     }
 
     var a = JSON.stringify(new Date);
+    if (created == null) {
+      this.created = a.substring(1, a.length - 2);
+    } else {
+      this.created = created;
+    }
 
-    this.created = a.substring(1, a.length - 2);
-    this.updated = a.substring(1, a.length - 2);
+    if (updated == null) {
+      this.updated = a.substring(1, a.length - 2);
+    } else {
+      this.updated = updated;
+    }
 
     if ("number" !== typeof (size) || size < 0) {
       throw new Error("Size must be a number and can not be a negative number ");
