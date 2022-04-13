@@ -22,11 +22,10 @@ fragment1_id: jsonpath "$.fragment.id"
 
 # GET the fragment info (i.e., metadata) for the fragment you just created
 # confirm that the server returns a 200 and that all of the metadata properties match what you expect
-GET {{fragment1_url}}
+GET {{fragment1_url}}/info
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: application/json
 
 [Asserts]
 jsonpath "$.status" == "ok"
@@ -38,7 +37,7 @@ jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
 # You could also write a regex for this and use matches
 jsonpath "$.fragment.created" isString
 jsonpath "$.fragment.updated" isString
-jsonpath "$.fragment.type" == "application/json"
+jsonpath "$.fragment.type" startsWith "application/json"
 
 # POST a second Markdown fragment to http://localhost:8080 as the same authorized user. 
 # The fragment's body should be the Markdown value, DynamoDB is **great**..
@@ -60,11 +59,10 @@ fragment2_id: jsonpath "$.fragment.id"
 
 # GET the fragment info (i.e., metadata) for the fragment you just created
 # confirm that the server returns a 200 and that all of the metadata properties match what you expect
-GET {{fragment2_url}}
+GET {{fragment2_url}}/info
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: text/markdown
 
 [Asserts]
 jsonpath "$.status" == "ok"
@@ -76,7 +74,7 @@ jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
 # You could also write a regex for this and use matches
 jsonpath "$.fragment.created" isString
 jsonpath "$.fragment.updated" isString
-jsonpath "$.fragment.type" == "text/markdown"
+jsonpath "$.fragment.type" startsWith "text/markdown"
 
 # GET all of the fragments for the same authorized user without expanding them (i.e., just get back the IDs) 
 # and confirm that the list of fragments includes the two id values you captured above
