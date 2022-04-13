@@ -29,8 +29,16 @@ HTTP/1.1 200
 Content-Type: application/json
 
 [Asserts]
-# We expect to get back a JSON response with the data
-jsonpath "$.service" == "DynamoDB"
+jsonpath "$.status" == "ok"
+# Our fragment ids use https://www.npmjs.com/package/nanoid
+jsonpath "$.fragment.id" matches "^[A-Za-z0-9_-]+$"
+# Our ownerId hash is a hex encoded string
+jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
+# Basic check for the presence of created and updated date strings.
+# You could also write a regex for this and use matches
+jsonpath "$.fragment.created" isString
+jsonpath "$.fragment.updated" isString
+jsonpath "$.fragment.type" == "application/json"
 
 # POST a second Markdown fragment to http://localhost:8080 as the same authorized user. 
 # The fragment's body should be the Markdown value, DynamoDB is **great**..
@@ -59,8 +67,16 @@ HTTP/1.1 200
 Content-Type: text/markdown
 
 [Asserts]
-# We expect to get back a JSON response with metadata info
-body == "DynamoDB is **great**."
+jsonpath "$.status" == "ok"
+# Our fragment ids use https://www.npmjs.com/package/nanoid
+jsonpath "$.fragment.id" matches "^[A-Za-z0-9_-]+$"
+# Our ownerId hash is a hex encoded string
+jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
+# Basic check for the presence of created and updated date strings.
+# You could also write a regex for this and use matches
+jsonpath "$.fragment.created" isString
+jsonpath "$.fragment.updated" isString
+jsonpath "$.fragment.type" == "text/markdown"
 
 # GET all of the fragments for the same authorized user without expanding them (i.e., just get back the IDs) 
 # and confirm that the list of fragments includes the two id values you captured above
