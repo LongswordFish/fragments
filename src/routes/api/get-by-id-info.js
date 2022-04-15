@@ -8,12 +8,12 @@ const logger = require("../../logger");
  */
 module.exports = async (req, res) => {
   try {
-    logger.debug(`Get GET /fragments/${req.params._id}/info requested`);
-    var _id = req.params._id;
+    logger.debug(`Get GET /fragments/${req.params.id}/info requested`);
+    var id = req.params.id;
 
-    var fragment = await Fragment.byId(req.user, _id);
+    var fragment = await Fragment.byId(req.user, id);
 
-    logger.debug("fragment with id: " + _id + " is " + fragment);
+    logger.debug("fragment with id: " + id + " is " + fragment);
 
     res.status(200).json(createSuccessResponse({ fragment }));
   } catch (err) {

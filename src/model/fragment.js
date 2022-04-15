@@ -5,6 +5,11 @@ const contentType = require('content-type');
 
 const logger = require('../logger');
 
+var MarkdownIt = require('markdown-it'),
+  md = new MarkdownIt();
+
+const sharp = require('sharp');
+
 
 // Functions for working with fragment metadata/data using our DB
 const {
@@ -132,6 +137,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
+    logger.debug('get data');
     return readFragmentData(this.ownerId, this.id);
 
   }
@@ -162,7 +168,7 @@ class Fragment {
    * "text/html; charset=utf-8" -> "text/html"
    * @returns {string} fragment's mime type (without encoding)
    */
-  get mimeType() {
+  mimeType() {
     const { type } = contentType.parse(this.type);
     return type;
   }
@@ -202,10 +208,10 @@ class Fragment {
       `text/markdown`,
       `text/html`,
       `application/json`,
-      // `image/png`,
-      // `image/jpeg`,
-      // `image/webp`,
-      // `image/gif`
+      `image/png`,
+      `image/jpeg`,
+      `image/webp`,
+      `image/gif`
     ];
 
     if (!value || value.length === 0) {
@@ -229,6 +235,95 @@ class Fragment {
 
   }
 
+  /**
+   * Returns true if the fragment can be converted to that ext type
+   * @param {string} ext represents a content-type the user wants the fragment data to be 
+   * @returns {boolean} true if we support this ext
+   */
+  isExtSupported(ext) {
+    const supportedTypePairs = {
+      "text/plain": [".txt"],
+      "text/markdown": [".md", ".html", ".txt"],
+      "text/html": [".html", ".txt"],
+      "application/json": [".json", ".txt"],
+      "image/png": [".png", ".jpg", ".webp", ".gif"],
+      "image/jpeg": [".png", ".jpg", ".webp", ".gif"],
+      "image/webp": [".png", ".jpg", ".webp", ".gif"],
+      "image/gif": [".png", ".jpg", ".webp", ".gif"],
+    }
+
+    if ("" === ext) {
+      return true;
+    }
+
+    if (supportedTypePairs[this.mimeType()].includes(ext)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Returns the data as the ext type
+   * @param {string} ext represents a content-type the user wants the fragment data to be 
+   * @returns Promise
+   */
+  async convertData(ext) {
+    try {
+
+      const data = await this.getData();
+      logger.debug(`data is ` + data);
+      if (ext === ".html" && this.mimeType() === "text/markdown") {
+        return Buffer.from(md.render(data.toString()));
+      }
+
+      if (ext === ".png") {
+        return await sharp(data).png().toBuffer();
+      }
+      if (ext === ".jpg") {
+        return await sharp(data).jpeg().toBuffer();
+      }
+      if (ext === ".webp") {
+        return await sharp(data).webp().toBuffer();
+      }
+      if (ext === ".gif") {
+        return await sharp(data).gif().toBuffer();
+      }
+
+      return data;
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Returns the content-type 
+   * @param {string} ext represents a content-type the user wants the fragment data to be 
+   * @returns String
+   */
+  convertContentType(ext) {
+    switch (ext) {
+      case ".txt":
+        return "text/plain";
+      case ".md":
+        return "text/markdown";
+      case ".html":
+        return "text/html";
+      case ".json":
+        return "application/json";
+      case ".png":
+        return "image/png";
+      case ".jpg":
+        return "image/jpeg";
+      case ".webp":
+        return "image/webp";
+      case ".gif":
+        return "image/gif";
+      default:
+        return this.mimeType();
+    }
+  }
 }
 
 module.exports.Fragment = Fragment;

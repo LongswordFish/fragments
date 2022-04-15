@@ -8,9 +8,7 @@ const logger = require("../../logger");
  */
 module.exports = async (req, res) => {
   try {
-    let expand = (req.query.expand && req.query.expand == 1) ? true : false;
-    logger.debug(`expand is ` + expand);
-    var fragments = await Fragment.byUser(req.user, expand);
+    var fragments = await Fragment.byUser(req.user, req.query.expand === 1);
     res.status(200).json(createSuccessResponse({
       fragments
     }));

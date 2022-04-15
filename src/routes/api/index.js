@@ -15,9 +15,9 @@ const contentType = require('content-type');
 
 // Define our routes, which will be: GET /v1/fragments
 //get data of a fragment
-router.get('/fragments/:_id', require('./get-by-id'));
+router.get('/fragments/:id', require('./get-by-id'));
 //get the metadata of a fragment 
-router.get('/fragments/:_id/info', require('./get-by-id-info'));
+router.get('/fragments/:id/info', require('./get-by-id-info'));
 //get all the fragments owned by the current user
 router.get('/fragments', require('./get'));
 
