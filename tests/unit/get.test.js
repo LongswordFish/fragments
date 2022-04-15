@@ -40,7 +40,7 @@ describe('GET /v1/fragments', () => {
   test('All attributes will return if not expand', async () => {
     await request(app).post('/v1/fragments').auth('user1@email.com', 'password1')
       .set('content-type', 'text/plain').send("this is the value");
-    const res = await request(app).get('/v1/fragments/?expand=1').auth('user1@email.com', 'password1');
+    const res = await request(app).get('/v1/fragments?expand=1').auth('user1@email.com', 'password1');
 
     const returnId = createHash('sha256').update('user1@email.com').digest('hex');
     expect(res.statusCode).toBe(200);

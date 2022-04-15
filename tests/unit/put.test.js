@@ -38,7 +38,7 @@ describe('PUT /v1/fragments', () => {
   //unsupported type will fail
   test('unsupported type will get a 415', async () => {
     const res = await request(app).put(`/v1/fragments/${FRAGMENT_ID}`).auth('user1@email.com', 'password1')
-      .set('content-type', 'image/gif');
+      .set('content-type', 'image/pdf');
     expect(res.statusCode).toBe(415);
     expect(res.body.error.message).toBe("type not supported");
   });

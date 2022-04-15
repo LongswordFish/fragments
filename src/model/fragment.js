@@ -168,7 +168,7 @@ class Fragment {
    * "text/html; charset=utf-8" -> "text/html"
    * @returns {string} fragment's mime type (without encoding)
    */
-  mimeType() {
+  get mimeType() {
     const { type } = contentType.parse(this.type);
     return type;
   }
@@ -256,7 +256,7 @@ class Fragment {
       return true;
     }
 
-    if (supportedTypePairs[this.mimeType()].includes(ext)) {
+    if (supportedTypePairs[this.mimeType].includes(ext)) {
       return true;
     } else {
       return false;
@@ -273,7 +273,7 @@ class Fragment {
 
       const data = await this.getData();
       logger.debug(`data is ` + data);
-      if (ext === ".html" && this.mimeType() === "text/markdown") {
+      if (ext === ".html" && this.mimeType === "text/markdown") {
         return Buffer.from(md.render(data.toString()));
       }
 
@@ -321,7 +321,7 @@ class Fragment {
       case ".gif":
         return "image/gif";
       default:
-        return this.mimeType();
+        return this.mimeType;
     }
   }
 }

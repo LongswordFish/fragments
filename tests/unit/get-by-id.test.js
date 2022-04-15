@@ -60,20 +60,6 @@ describe('GET /v1/fragments/:id', () => {
 
   });
 
-
-  // if the ext is not supported, return 415
-  test('if the ext is not supported, return 415', async () => {
-    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1')
-      .set('content-type', 'text/plain').send("this is the value");
-    const id = res.body.fragment.id;
-
-    const res2 = await request(app).get(`/v1/fragments/${id}.whatever`).auth('user1@email.com', 'password1');
-
-    expect(res2.statusCode).toBe(415);
-    expect(res2.body.error.message).toBe("The extension .whatever is not supported");
-
-  });
-
   // if the fragment can be converted
   test('if the data can be converted, return converted data', async () => {
     const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1')
