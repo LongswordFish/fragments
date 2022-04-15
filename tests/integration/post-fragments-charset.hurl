@@ -35,7 +35,7 @@ GET {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain
 Content-Length: 19
 [Asserts]
 body == "This is a fragment!"
