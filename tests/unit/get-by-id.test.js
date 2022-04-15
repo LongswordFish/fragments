@@ -2,6 +2,8 @@
 
 const request = require('supertest');
 const app = require('../../src/app');
+var fs = require('fs');
+var path = require('path');
 
 describe('GET /v1/fragments/:id', () => {
   // If the request is missing the Authorization header, it should be forbidden
@@ -72,6 +74,40 @@ describe('GET /v1/fragments/:id', () => {
     expect(res2.text).toEqual("<p>this is the value</p>\n");
 
   });
+
+  // convert between images
+  test('convert between images', async () => {
+    var BUFFER = bufferFile('../assets/1-puppy.jpg');
+
+    function bufferFile(relPath) {
+      return fs.readFileSync(path.join(__dirname, relPath)); // zzzz....
+    }
+
+    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1')
+      .set('content-type', 'image/jpeg').send(BUFFER);
+    const id = res.body.fragment.id;
+
+    const res2 = await request(app).get(`/v1/fragments/${id}.png`).auth('user1@email.com', 'password1');
+
+    expect(res2.statusCode).toBe(200);
+    expect(res2.headers['content-type']).toBe('image/png');
+
+    const res3 = await request(app).get(`/v1/fragments/${id}.webp`).auth('user1@email.com', 'password1');
+
+    expect(res3.statusCode).toBe(200);
+    expect(res3.headers['content-type']).toBe('image/webp');
+
+    const res4 = await request(app).get(`/v1/fragments/${id}.gif`).auth('user1@email.com', 'password1');
+
+    expect(res4.statusCode).toBe(200);
+    expect(res4.headers['content-type']).toBe('image/gif');
+
+    const res5 = await request(app).get(`/v1/fragments/${id}.jpg`).auth('user1@email.com', 'password1');
+    expect(res5.statusCode).toBe(200);
+    expect(res5.headers['content-type']).toBe('image/jpeg');
+
+  });
+
 
   // if the fragment cannot be converted
   test('if the data cannot be converted, return converted data', async () => {

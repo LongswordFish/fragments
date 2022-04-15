@@ -125,6 +125,11 @@ describe('Fragment class', () => {
       expect(Fragment.isSupportedType('audio/webm')).toBe(false);
       expect(Fragment.isSupportedType('video/ogg')).toBe(false);
     });
+
+    test('blank type is not supported', () => {
+      expect(Fragment.isSupportedType()).toBe(false);
+      expect(Fragment.isSupportedType("")).toBe(false);
+    });
   });
 
   describe('mimeType, isText', () => {
@@ -253,6 +258,25 @@ describe('Fragment class', () => {
 
       await Fragment.delete('1234', fragment.id);
       expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
+    });
+  });
+
+  describe('convertContentType', () => {
+    test('convertContentType() returns the correct content-type', () => {
+      const fragment = new Fragment({
+        ownerId: '1234',
+        type: 'text/plain; charset=utf-8',
+        size: 0,
+      });
+      expect(fragment.convertContentType(".txt")).toEqual('text/plain');
+      expect(fragment.convertContentType(".md")).toEqual('text/markdown');
+      expect(fragment.convertContentType(".json")).toEqual('application/json');
+      expect(fragment.convertContentType(".html")).toEqual('text/html');
+      expect(fragment.convertContentType(".jpg")).toEqual('image/jpeg');
+      expect(fragment.convertContentType(".png")).toEqual('image/png');
+      expect(fragment.convertContentType(".webp")).toEqual('image/webp');
+      expect(fragment.convertContentType(".gif")).toEqual('image/gif');
+      expect(fragment.convertContentType("")).toEqual('text/plain');
     });
   });
 });
