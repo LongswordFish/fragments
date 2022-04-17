@@ -43,7 +43,7 @@ const rawBody = () =>
 router.post('/fragments', rawBody(), require('./post'));
 
 //update a data
-router.put('/fragments/:_id', rawBody(), require('./put'));
+router.put('/fragments/:id', rawBody(), require('./put'));
 
 // Other routes will go here later on...
 
