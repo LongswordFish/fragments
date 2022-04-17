@@ -8,7 +8,7 @@ const logger = require('../../logger');
  */
 module.exports = async (req, res) => {
   try {
-    logger.debug(`PUT /fragments/${req.params._id} requested`);
+    logger.debug(`PUT /fragments/${req.params.id} requested`);
 
     //check if the content-type of the new data is supported
     if (Buffer.isBuffer(req.body) === false || !req.body) {
@@ -16,9 +16,9 @@ module.exports = async (req, res) => {
         415, "type not supported"
       ));
     } else {
-      var _id = req.params._id;
+      var id = req.params.id;
       var type = req.headers['content-type'];
-      var fragment = await Fragment.byId(req.user, _id);
+      let fragment = new Fragment(await Fragment.byId(req.user, id));
       if (fragment.type !== type) {
         res.status(400).json(createErrorResponse(
           400, "Type doesn't match with existing fragment"
