@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     logger.debug(`Get GET /fragments/${req.params.id}/info requested`);
     var id = req.params.id;
 
-    var fragment = await Fragment.byId(req.user, id);
+    let fragment = new Fragment(await Fragment.byId(req.user, id));
 
     logger.debug("fragment with id: " + id + " is " + fragment);
 
