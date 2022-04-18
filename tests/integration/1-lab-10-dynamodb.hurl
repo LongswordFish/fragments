@@ -87,11 +87,8 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 HTTP/1.1 200
 
 [Asserts]
-jsonpath "$.fragments" count == 2
-jsonpath "$.fragments[0]" matches "^[A-Za-z0-9_-]+$"
-jsonpath "$.fragments[1]" matches "^[A-Za-z0-9_-]+$"
-jsonpath "$.fragments[0]" contains "{{fragment1_id}}"
-jsonpath "$.fragments[1]" contains "{{fragment2_id}}"
+jsonpath "$.fragments" includes "{{fragment1_id}}"
+jsonpath "$.fragments" includes "{{fragment2_id}}"
 
 # DELETE the first fragment you created above
 DELETE {{fragment1_url}}
@@ -115,5 +112,4 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 HTTP/1.1 200
 
 [Asserts]
-jsonpath "$.fragments" count == 1
-jsonpath "$.fragments[0]" contains "{{fragment2_id}}"
+jsonpath "$.fragments" includes "{{fragment2_id}}"
