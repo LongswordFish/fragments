@@ -24,7 +24,6 @@ module.exports = async (req, res) => {
           400, "Type doesn't match with existing fragment"
         ));
       } else {
-        await fragment.save();
         await fragment.setData(req.body);
 
         res.status(200).json(createSuccessResponse({
