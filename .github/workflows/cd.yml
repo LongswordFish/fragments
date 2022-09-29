@@ -97,6 +97,6 @@ jobs:
           # Make sure this matches your Elastic Beanstalk application name
           application_name: fragments
           # Make sure this matches your Elastic Beanstalk environment name:
-          environment_name: Fragments-env-1
+          environment_name: Fragments-env
           version_label: ${{ env.VERSION }}
           deployment_package: ${{ env.COMPOSE_FILE }}
