@@ -4,32 +4,7 @@ Microservices fragments created for CCP555
 
 ## Project Description
 
-This is a microservice API that will run on the AWS.
-
-## How to run
-
-Install the dependencies:
-
-        cd fragments
-        npm install
-
-Run eslint:
-
-        npm run lint
-
-Start the server:
-
-        npm run start
-
-
-Run in development mode:
-
-        npm run dev
-
-
-Run in debug mode:
-
-        npm run debug
+This is a microservice API that will run on the AWS. It uses GitHub action as a CI/CD pipeline. Each push to the main branch will trigger the pipeline. There is a docker file in the repo, the microservices will be pushed into both DockerHub and AWS image registry. Then it will be deployed to the AWS elastic beanstalk. 
 
 
 ## Contact
